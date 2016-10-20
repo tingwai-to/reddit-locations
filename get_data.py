@@ -1,10 +1,12 @@
 import praw
 import get_entity
+import googlemaps
+from pprint import pprint as pp
 
 
 def reddit_data():
     r = praw.Reddit(user_agent='reddit')
-    submissions = r.get_subreddit('earthporn').get_hot(limit=5)
+    submissions = r.get_subreddit('earthporn').get_hot(limit=10)
 
     next(submissions)       # skip first pinned post
     titles = []
@@ -21,4 +23,14 @@ def reddit_data():
     return urls, titles, entity_names
 
 urls, titles, entity_names = reddit_data()
+pp(titles)
+pp(entity_names)
 
+def maps_location(string):
+    with open('apikey.txt') as f:
+        mykey = f.read()
+    gmaps = googlemaps.Client(key=mykey)
+    result = gmaps.places_autocomplete(string)
+    return result
+
+x = maps_location('google')
