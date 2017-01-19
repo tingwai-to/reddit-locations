@@ -7,6 +7,8 @@ import praw
 
 
 def reddit_data(subname):
+    LIMIT=10
+
     reddit = praw.Reddit(client_id = os.environ['client_id'],
                          client_secret = os.environ['client_secret'],
                          username = os.environ['username'],
@@ -15,7 +17,7 @@ def reddit_data(subname):
     subreddit = reddit.subreddit(subname)
 
     hot = []
-    for submission in subreddit.hot(limit=10):
+    for submission in subreddit.hot(limit=LIMIT):
         if submission.stickied:
             continue
         hot.append({'id': submission.id,                            # string
@@ -30,15 +32,17 @@ def reddit_data(subname):
     return hot
 
 def save_image(data):
+    fname = '/tmp/'+data['id']
+
     if requests.head(data['url']).headers['Content-Type'] == 'image/jpeg':
-        urllib.urlretrieve(data['url'], '/tmp/'+data['id'])
+        urllib.urlretrieve(data['url'], fname)
         print(data['id'] + ' saved to /tmp')
         return True
 
     else:
-        urllib.urlretrieve(data['url'], '/tmp/'+data['id'])
+        urllib.urlretrieve(data['url'], fname)
 
-        if imghdr.what(data['id']) == 'jpeg':
+        if imghdr.what(fname) == 'jpeg':
             print(data['id'] + ' saved to /tmp')
             return True
         else:
