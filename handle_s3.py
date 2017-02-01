@@ -4,8 +4,9 @@ import boto3
 import botocore
 
 
+s3 = boto3.client('s3')
+
 def upload_image(data):
-    s3 = boto3.client('s3')
     s3.upload_file('/tmp/'+data['id'],
                    os.environ['bucket_name'],
                    data['subreddit'] + '/' + data['id'])

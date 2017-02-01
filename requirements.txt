@@ -1,2 +1,3 @@
 requests==2.12.4
-praw==4.2.0
+praw>=4.2.0
+pymysql

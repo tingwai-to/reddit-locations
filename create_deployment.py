@@ -25,10 +25,13 @@ if not os.path.exists(root_deployments_dir):
 # Only the files listed here, and the libraries in the requirements.txt
 # file will be included in the deployment.
 deployment_files =\
-    ['main.py',
+    ['get_reddit_data.py',
      'get_data.py',
+     'get_rekognition_data.py',
      'handle_s3.py',
-     'handle_dynamodb.py'
+     'handle_dynamodb.py',
+     'handle_rds.py',
+     'rds_config.py'
      ]
 
 def _read_requirements():
