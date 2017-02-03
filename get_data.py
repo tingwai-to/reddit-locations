@@ -34,18 +34,23 @@ def reddit_data(subname):
 def save_image(data):
     fname = '/tmp/'+data['id']
 
-    if requests.head(data['url']).headers['Content-Type'] == 'image/jpeg':
-        urllib.urlretrieve(data['url'], fname)
-        print(data['id'] + ' saved to /tmp')
-        return True
-
-    else:
-        urllib.urlretrieve(data['url'], fname)
-
-        if imghdr.what(fname) == 'jpeg':
+    try:
+        if requests.head(data['url']).headers['Content-Type'] == 'image/jpeg':
+            urllib.urlretrieve(data['url'], fname)
             print(data['id'] + ' saved to /tmp')
             return True
+
         else:
-            # os.remove(data['id'])
-            print(data['id'] + ' not jpeg')
-            return False
+            urllib.urlretrieve(data['url'], fname)
+
+            if imghdr.what(fname) == 'jpeg':
+                print(data['id'] + ' saved to /tmp')
+                return True
+            else:
+                # os.remove(data['id'])
+                print(data['id'] + ' not jpeg')
+                return False
+    except Exception as exc:
+        print(exc)
+        print('Unable to save image {}'.format(data['id']))
+        return False

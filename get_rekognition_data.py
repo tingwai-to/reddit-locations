@@ -18,11 +18,13 @@ def detect_labels(bucket, key):
     return response
 
 def lambda_handler(event, context):
-    print("Log stream name: ", context.log_stream_name)
-    print("Log group name: ",  context.log_group_name)
-
     bucket = event['Records'][0]['s3']['bucket']['name']
     key = urllib.unquote_plus(event['Records'][0]['s3']['object']['key'].encode('utf8'))
+    if key.startswith('logs/'):
+        return
+
+    print("Log stream name: ", context.log_stream_name)
+    print("Log group name: ",  context.log_group_name)
     print('Received event: Bucket: {0}, Name: {1}'.format(bucket, key))
 
     try:
