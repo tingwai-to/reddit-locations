@@ -34,14 +34,20 @@ def insert_metadata(data):
             print(exc)
             return
 
-def insert_tag(response):
+def insert_tag(key, response):
+    image_id = key.split('/')[1]
     with conn.cursor() as cur:
         for label in response['Labels']:
             try:
-                cmd = "INSERT INTO Tag (name) VALUES (%s)"
+                cmd = """INSERT INTO Tag (name) VALUES (%s)
+                         ON DUPLICATE KEY UPDATE id=LAST_INSERT_ID()"""
                 cur.execute(cmd, label['Name'])
+
+                cur.execute("SELECT LAST_INSERT_ID()")
+                tag_id = cur.fetchone()[0]
+
+                cmd = """INSERT INTO Tagmap (image_id, tag_id, confidence)
+                         VALUES (%s, %s, %s)"""
+                cur.execute(cmd, (image_id, tag_id, label['Confidence']))
             except Exception as exc:
                 print(exc)
-
-# def insert_tagmap(response):
-#     with conn.cursor() as cur:

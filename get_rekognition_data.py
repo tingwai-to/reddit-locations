@@ -30,8 +30,7 @@ def lambda_handler(event, context):
     try:
         # Calls rekognition DetectFaces API to detect faces in S3 object
         response = detect_labels(bucket, key)
-
-        handle_rds.insert_tag(response)
+        handle_rds.insert_tag(key, response)
 
     except Exception as e:
         print(e)
