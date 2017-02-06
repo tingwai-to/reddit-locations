@@ -7,7 +7,7 @@ import praw
 
 
 def reddit_data(subname):
-    LIMIT=10
+    LIMIT=15
 
     reddit = praw.Reddit(client_id = os.environ['client_id'],
                          client_secret = os.environ['client_secret'],
@@ -50,6 +50,7 @@ def save_image(data):
                 # os.remove(data['id'])
                 print(data['id'] + ' not jpeg')
                 return False
+
     except Exception as exc:
         print(exc)
         print('Unable to save image {}'.format(data['id']))
