@@ -1,23 +1,19 @@
 <html>
 
 <head>
-
   <meta charset="utf-8">
-
-  <script src="js/jquery.min.js"></script>
-  <script src="js/bootstrap.min.js"></script>
-  <script src="js/select2.min.js"></script>
 
   <link href="css/bootstrap.min.css" rel="stylesheet">
   <link href="css/select2-bootstrap.min.css" rel="stylesheet">
   <link href="css/4-col.css" rel="stylesheet">
   <link href="css/select2.min.css" rel="stylesheet"/>
+  <link href="css/flex-images.css" rel="stylesheet">
+
 </head>
 
 <body>
-
 <!-- navbar -->
-<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
     <!-- Brand and toggle get grouped for better mobile display -->
     <div class="navbar-header">
@@ -48,9 +44,7 @@
         </li>
       </ul>
     </div>
-    <!-- /.navbar-collapse -->
   </div>
-  <!-- /.container -->
 </nav>
 
 <div class="container">
@@ -68,6 +62,7 @@
   <div class="row tags">
     <div class="container-fluid">
       <select id="tags" class="form-control" multiple>
+        <option></option>
         <?php
         require('get_tags.php');
         foreach ($tag_array as $key => $value):
@@ -78,162 +73,44 @@
     </div>
   </div>
 
-  <!-- loading -->
-  <div class="row">
-    <div class="wrapper">
-      <ul id="results"><!-- results appear here --></ul>
+  <!-- Loading / Images -->
+  <div class="row" style="text-align: center">
+    <div class="container">
+      <div class="flex-images" id="results">
+        <!-- results appear here -->
+      </div>
       <div class="loading-info">
         <img src="loading.gif"/>
       </div>
     </div>
   </div>
 
-  <!-- row1 -->
-  <div class="row">
-    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12 portfolio-item">
-      <a href="#">
-        <img class="img-responsive"
-             src="http://placehold.it/750x450"
-             alt="">
-      </a>
-    </div>
-    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12 portfolio-item">
-      <a href="#">
-        <img class="img-responsive"
-             src="http://placehold.it/750x450"
-             alt="">
-      </a>
-    </div>
-    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12 portfolio-item">
-      <a href="#">
-        <img class="img-responsive"
-             src="http://placehold.it/750x450"
-             alt="">
-      </a>
-    </div>
-    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12 portfolio-item">
-      <a href="#">
-        <img class="img-responsive"
-             src="http://placehold.it/750x450"
-             alt="">
-      </a>
-    </div>
-  </div>
-
-  <!-- row2 -->
-  <div class="row">
-    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12 portfolio-item">
-      <a href="#">
-        <img class="img-responsive"
-             src="http://placehold.it/750x450"
-             alt="">
-      </a>
-    </div>
-    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12 portfolio-item">
-      <a href="#">
-        <img class="img-responsive"
-             src="http://placehold.it/750x450"
-             alt="">
-      </a>
-    </div>
-    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12 portfolio-item">
-      <a href="#">
-        <img class="img-responsive"
-             src="http://placehold.it/750x450"
-             alt="">
-      </a>
-    </div>
-    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12 portfolio-item">
-      <a href="#">
-        <img class="img-responsive"
-             src="http://placehold.it/750x450"
-             alt="">
-      </a>
-    </div>
-  </div>
-
-  <!-- row3 -->
-  <div class="row">
-    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12 portfolio-item">
-      <a href="#">
-        <img class="img-responsive"
-             src="http://placehold.it/750x450"
-             alt="">
-      </a>
-    </div>
-    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12 portfolio-item">
-      <a href="#">
-        <img class="img-responsive"
-             src="http://placehold.it/750x450"
-             alt="">
-      </a>
-    </div>
-    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12 portfolio-item">
-      <a href="#">
-        <img class="img-responsive"
-             src="http://placehold.it/750x450"
-             alt="">
-      </a>
-    </div>
-    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12 portfolio-item">
-      <a href="#">
-        <img class="img-responsive"
-             src="http://placehold.it/750x450"
-             alt="">
-      </a>
-    </div>
-  </div>
-
-
-  <!-- bottom page nav -->
-  <!--
-  <div class="row text-center">
-    <div class="col-lg-12">
-      <ul class="pagination">
-        <li>
-          <a href="#">&laquo;</a>
-        </li>
-        <li class="active">
-          <a href="#">1</a>
-        </li>
-        <li>
-          <a href="#">2</a>
-        </li>
-        <li>
-          <a href="#">3</a>
-        </li>
-        <li>
-          <a href="#">4</a>
-        </li>
-        <li>
-          <a href="#">5</a>
-        </li>
-        <li>
-          <a href="#">&raquo;</a>
-        </li>
-      </ul>
-    </div>
-  </div>
-  -->
-
   <hr>
 
-
-  <!-- Footer -->
-  <footer>
-    <div class="row">
-      <div class="col-lg-12">
-        <p>Copyright &copy; Your Website 2017</p>
+  <!--  Footer -->
+  <div class="container">
+    <footer>
+      <div class="row">
+        <div class="col-lg-12">
+          <p>Copyright &copy; Your Website 2017</p>
+        </div>
       </div>
-    </div>
-    <!-- /.row -->
-  </footer>
-</div> <!-- close whole container -->
+    </footer>
+  </div>
+
+</div>
+
+
+<script src="js/jquery.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/select2.min.js"></script>
+<script src="js/flex-images.js"></script>
 
 <!-- select2 for tags -->
 <script type="text/javascript">
   $("#tags").prop("selectedIndex", -1);
   $("#tags").select2({
+    placeholder: " Select or search for tags",
     createTag: function (params) {
       if (params.term.indexOf('@') === -1) {
         return null;
@@ -253,6 +130,7 @@
   });
 </script>
 
+<!-- load images on scroll and <select> -->
 <script type="text/javascript">
   var track_page = 1; //track user scroll as page number, right now page number is 1
   var loading = false; //prevents multiple loads
@@ -260,28 +138,36 @@
   load_contents(track_page); //initial content load
 
   $(window).scroll(function () { //detect page scroll
-    if ($(window).scrollTop() + $(window).height() >= $(document).height()) { //if user scrolled to bottom of the page
+    if ($(window).scrollTop() >= $(document).height() - $(window).height() - 10) { //if user scrolled to bottom of the page
       track_page++; //page number increment
       load_contents(track_page); //load content
     }
   });
 
+  $('select').change(function() {
+    $("#results").html("");
+    var values = $('#tags').val();
+    var track_page = 1; //track user scroll as page number, right now page number is 1
+    load_contents(track_page, tags=values);
+  });
+
   //Ajax load function
-  function load_contents(track_page) {
+  function load_contents(track_page, tags=[]) {
     if (loading == false) {
       loading = true;
-      $('.loading-info').show(); //show loading animation
-      $.post('get_pages.php', {'page': track_page}, function (data) {
+      $('.loading-info').show();
+      $.post('get_pages.php', {'page': track_page, 'tags':JSON.stringify(tags)}, function (data) {
         loading = false; //set loading flag off once the content is loaded
         if (data.trim().length == 0) {
-          $('.loading-info').html("No more records!");
-          return;
+          $('.loading-info').html("No more images!");
+//          return;
         }
         $('.loading-info').hide(); //hide loading animation once data is received
-        $("#results").append(data); //append data into #results element
+        $("#results").append(data);
+        new flexImages({ selector: '.flex-images', rowHeight: 400 });
 
       }).fail(function (xhr, ajaxOptions, thrownError) {
-        alert(thrownError); //alert with HTTP error
+//        alert(thrownError); //alert with HTTP error
       })
     }
   }
