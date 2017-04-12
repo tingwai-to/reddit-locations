@@ -8,7 +8,7 @@ body {
 }
 
 div {
-    border: 1px solid black; /* for visual inspection only */
+    /*border: 1px solid black; !* for visual inspection only *!*/
     overflow: hidden;
 }
 

@@ -147,8 +147,8 @@
   $('select').change(function() {
     $("#results").html("");
     var values = $('#tags').val();
-    var track_page = 1; //track user scroll as page number, right now page number is 1
-    load_contents(track_page, tags=values);
+    var track_page = 1; //reset page
+    load_contents(track_page, values);
   });
 
   //Ajax load function
@@ -164,7 +164,7 @@
         }
         $('.loading-info').hide(); //hide loading animation once data is received
         $("#results").append(data);
-        new flexImages({ selector: '.flex-images', rowHeight: 400 });
+        new flexImages({ selector: '.flex-images', rowHeight: 300 });
 
       }).fail(function (xhr, ajaxOptions, thrownError) {
 //        alert(thrownError); //alert with HTTP error
