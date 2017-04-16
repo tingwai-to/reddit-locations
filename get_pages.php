@@ -1,7 +1,7 @@
 <?php
 
 require("config.php");
-//sanitize post value
+
 $page_number = filter_var($_POST["page"], FILTER_SANITIZE_NUMBER_INT, FILTER_FLAG_STRIP_HIGH);
 $tags = json_decode($_POST["tags"]);
 
@@ -37,14 +37,11 @@ while ($results->fetch()) {
 
   if (is_array($exists)) {
     list($width, $height) = $exists;
-    //  echo '<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">';
-    echo '<div class="item" data-w="' . $width . '" data-h="' . $height . '">';
-      echo '<a href="' . 'http://reddit.com/' . $id . '">';
-        echo '<img ';
-        echo 'src="' . $url . '" ';
-        echo 'alt="' . $title . '" >';
-      echo '</a>';
-    echo '</div>';
+    echo "<div class='item' data-w='$width' data-h='$height''>";
+      echo "<a href='http://reddit.com/$id'>";
+        echo "<img src='$url' alt='$title'>";
+      echo "</a>";
+    echo "</div>";
   }
 }
 
