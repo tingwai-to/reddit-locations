@@ -7,8 +7,9 @@
   <link href="css/bootstrap.min.css" rel="stylesheet">
   <link href="css/select2-bootstrap.min.css" rel="stylesheet">
   <link href="css/style.css" rel="stylesheet">
-  <link href="css/select2.min.css" rel="stylesheet"/>
+  <link href="css/select2.min.css" rel="stylesheet">
   <link href="css/flex-images.css" rel="stylesheet">
+
 
 </head>
 
@@ -81,7 +82,7 @@
         <!-- results appear here -->
       </div>
       <div class="loading-info">
-        <img src="loading.gif"/>
+        <br/><img src="img/loading.gif"/>
       </div>
     </div>
   </div>
@@ -101,85 +102,12 @@
 
 </div>
 
-
 <script src="js/jquery.min.js"></script>
 <script src="js/bootstrap.min.js"></script>
 <script src="js/select2.min.js"></script>
 <script src="js/flex-images.js"></script>
-
-<!-- select2 for tags -->
-<script type="text/javascript">
-  $("#tags").prop("selectedIndex", -1);
-  $("#tags").select2({
-    width: '100%',
-    placeholder: " Select or search for tags",
-    createTag: function (params) {
-      if (params.term.indexOf('@') === -1) {
-        return null;
-      }
-
-      return {
-        id: params.term,
-        text: params.term
-      }
-    }
-  }).on('select2:open', function () {
-
-    $('.select2-dropdown--above').attr('id', 'fix');
-    $('#fix').removeClass('select2-dropdown--above');
-    $('#fix').addClass('select2-dropdown--below');
-
-  });
-</script>
-
-<!-- load images on scroll and <select> -->
-<script type="text/javascript">
-  var track_page = 1; //track user scroll as page number, right now page number is 1
-  var loading = false; //prevents multiple loads
-
-  load_contents(track_page); //initial content load
-
-  $(window).scroll(function () { //detect page scroll
-    if ($(window).scrollTop() >= $(document).height() - $(window).height() - 100) { //if user scrolls within 100px of bottom of the page
-      var values = $('#tags').val();
-      load_contents(track_page, values); //load content
-    }
-  });
-
-  $('#tags').change(function () {
-    $('#tags').prop('disabled', true);
-    $("#results").html("");
-    var values = $('#tags').val();
-    track_page = 1; //reset page
-    load_contents(track_page, values);
-    $('.loading-info').html('<img src="loading.gif"/>');
-
-  });
-
-  //Ajax load function
-  function load_contents(page, tags=[]) {
-    if (loading == false) {
-      loading = true;
-      $('.loading-info').show();
-
-      $.post('get_pages.php', {'page': page, 'tags': JSON.stringify(tags)}, function (data) {
-        $("#tags").prop("disabled", false);
-        loading = false; //set loading flag off once the content is loaded
-        if (data.trim().length == 0) {
-          $('.loading-info').html("<br/>No more images!");
-          return;
-        }
-        track_page++;
-        $('.loading-info').hide(); //hide loading animation once data is received
-        $("#results").append(data);
-        new flexImages({selector: '.flex-images', rowHeight: 400});
-
-      }).fail(function (xhr, ajaxOptions, thrownError) {
-//        alert(thrownError); //alert with HTTP error
-      })
-    }
-  }
-</script>
+<script src="js/select2_config.js"></script>
+<script src="js/load_images.js"></script>
 
 
 </body>
