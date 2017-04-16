@@ -1,5 +1,11 @@
+html {
+    /*overflow-y: scroll;*/
+    height: 100%;
+}
+
 body {
     padding-top: 30px;
+    min-height: 101%;
 }
 
 .tags {

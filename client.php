@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html>
 
 <head>
@@ -5,7 +6,7 @@
 
   <link href="css/bootstrap.min.css" rel="stylesheet">
   <link href="css/select2-bootstrap.min.css" rel="stylesheet">
-  <link href="css/4-col.css" rel="stylesheet">
+  <link href="css/style.css" rel="stylesheet">
   <link href="css/select2.min.css" rel="stylesheet"/>
   <link href="css/flex-images.css" rel="stylesheet">
 
@@ -110,6 +111,7 @@
 <script type="text/javascript">
   $("#tags").prop("selectedIndex", -1);
   $("#tags").select2({
+    width: '100%',
     placeholder: " Select or search for tags",
     createTag: function (params) {
       if (params.term.indexOf('@') === -1) {
@@ -138,33 +140,39 @@
   load_contents(track_page); //initial content load
 
   $(window).scroll(function () { //detect page scroll
-    if ($(window).scrollTop() >= $(document).height() - $(window).height() - 10) { //if user scrolled to bottom of the page
-      track_page++; //page number increment
-      load_contents(track_page); //load content
+    if ($(window).scrollTop() >= $(document).height() - $(window).height() - 100) { //if user scrolls within 100px of bottom of the page
+      var values = $('#tags').val();
+      load_contents(track_page, values); //load content
     }
   });
 
-  $('select').change(function() {
+  $('#tags').change(function () {
+    $('#tags').prop('disabled', true);
     $("#results").html("");
     var values = $('#tags').val();
-    var track_page = 1; //reset page
+    track_page = 1; //reset page
     load_contents(track_page, values);
+    $('.loading-info').html('<img src="loading.gif"/>');
+
   });
 
   //Ajax load function
-  function load_contents(track_page, tags=[]) {
+  function load_contents(page, tags=[]) {
     if (loading == false) {
       loading = true;
       $('.loading-info').show();
-      $.post('get_pages.php', {'page': track_page, 'tags':JSON.stringify(tags)}, function (data) {
+
+      $.post('get_pages.php', {'page': page, 'tags': JSON.stringify(tags)}, function (data) {
+        $("#tags").prop("disabled", false);
         loading = false; //set loading flag off once the content is loaded
         if (data.trim().length == 0) {
-          $('.loading-info').html("No more images!");
-//          return;
+          $('.loading-info').html("<br/>No more images!");
+          return;
         }
+        track_page++;
         $('.loading-info').hide(); //hide loading animation once data is received
         $("#results").append(data);
-        new flexImages({ selector: '.flex-images', rowHeight: 300 });
+        new flexImages({selector: '.flex-images', rowHeight: 400});
 
       }).fail(function (xhr, ajaxOptions, thrownError) {
 //        alert(thrownError); //alert with HTTP error
