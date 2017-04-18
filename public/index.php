@@ -2,6 +2,8 @@
 <html>
 
 <head>
+  <title>RedditEarth - Search with Image Recognition</title>
+
   <meta charset="utf-8">
 
   <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -29,7 +31,7 @@
         <span class="icon-bar"></span>
       </button>
       <a class="navbar-brand"
-         href="#">Start Bootstrap</a>
+         href="#">RedditEarth</a>
     </div>
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse"
@@ -37,9 +39,6 @@
       <ul class="nav navbar-nav">
         <li>
           <a href="#">About</a>
-        </li>
-        <li>
-          <a href="#">Services</a>
         </li>
         <li>
           <a href="#">Contact</a>
@@ -54,8 +53,8 @@
   <!-- Page Heading -->
   <div class="row">
     <div class="col-lg-12">
-      <h1 class="page-header">Page Heading
-        <small>Secondary Text</small>
+      <h1 class="page-header">r/EarthPorn
+        <small>search with image recognition</small>
       </h1>
     </div>
   </div>
@@ -66,7 +65,7 @@
       <select id="tags" class="form-control" multiple>
         <option></option>
         <?php
-        require('get_tags.php');
+        require('src/get_tags.php');
         foreach ($tag_array as $key => $value):
           echo '<option value="' . $key . '">' . $value . '</option>';
         endforeach;

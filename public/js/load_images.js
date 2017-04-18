@@ -26,7 +26,7 @@ function load_contents(page, tags=[]) {
     loading = true;
     $('.loading-info').show();
 
-    $.post('get_pages.php', {'page': page, 'tags': JSON.stringify(tags)}, function (data) {
+    $.post('src/get_pages.php', {'page': page, 'tags': JSON.stringify(tags)}, function (data) {
       $("#tags").prop("disabled", false);
       loading = false; //set loading flag off once the content is loaded
       if (data.trim().length == 0) {

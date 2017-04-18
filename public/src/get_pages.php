@@ -15,7 +15,7 @@ if (!is_numeric($page_number)) {
 $position = (($page_number - 1) * $item_per_page);
 
 if (empty($tags)) {
-  $results = $mysqli->prepare("SELECT id, score, url, title, thumbnail FROM Image ORDER BY score  DESC LIMIT ?, ?");
+  $results = $mysqli->prepare("SELECT id, score, url, title, thumbnail FROM Image ORDER BY created_utc  DESC LIMIT ?, ?");
 
   $results->bind_param("dd", $position, $item_per_page);
   $results->execute();
@@ -24,7 +24,7 @@ if (empty($tags)) {
 } else {
   $tag_string = implode(",", $tags);
 
-  $results = $mysqli->prepare("SELECT id, score, url, title, thumbnail FROM Image WHERE id IN ( SELECT image_id FROM Tagmap WHERE tag_id IN ($tag_string) GROUP BY image_id HAVING count(DISTINCT(tag_id)) = ? ) ORDER BY score DESC LIMIT ?, ?");
+  $results = $mysqli->prepare("SELECT id, score, url, title, thumbnail FROM Image WHERE id IN ( SELECT image_id FROM Tagmap WHERE tag_id IN ($tag_string) GROUP BY image_id HAVING count(DISTINCT(tag_id)) = ? ) ORDER BY created_utc DESC LIMIT ?, ?");
 
   $results->bind_param("ddd", count($tags), $position, $item_per_page);
   $results->execute();
