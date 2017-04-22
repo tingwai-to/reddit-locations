@@ -1,7 +1,7 @@
 $("#tags").prop("selectedIndex", -1);
 $("#tags").select2({
   width: '100%',
-  placeholder: " Select or search for tags",
+  placeholder: " Select or search for tag(s)",
   createTag: function (params) {
     if (params.term.indexOf('@') === -1) {
       return null;

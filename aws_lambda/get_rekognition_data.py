@@ -12,7 +12,7 @@ logger.setLevel(logging.INFO)
 
 
 def detect_labels(bucket, key):
-    response = rekognition.detect_labels(Image={"S3Object": {"Bucket": bucket, "Name": key}}, MinConfidence=70)
+    response = rekognition.detect_labels(Image={"S3Object": {"Bucket": bucket, "Name": key}}, MinConfidence=80)
     return response
 
 def lambda_handler(event, context):

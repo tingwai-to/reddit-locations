@@ -37,7 +37,7 @@ while ($results->fetch()) {
 
   if (is_array($exists)) {
     list($width, $height) = $exists;
-    echo "<div class='item' data-w='$width' data-h='$height''>";
+    echo "<div class='item' data-w='$width' data-h='$height'>";
       echo "<a href='http://reddit.com/$id'>";
         echo "<img src='$url' alt='$title'>";
       echo "</a>";
