@@ -20,15 +20,25 @@ def reddit_data(subname):
     for submission in subreddit.hot(limit=LIMIT):
         if submission.stickied:
             continue
-        hot.append({'id': submission.id,                            # string
+
+        metadata = {'id': submission.id,                            # string
                     'score': submission.score,                      # int
                     'created_utc': int(submission.created_utc),     # int
                     'title': submission.title,                      # string
-                    'url': submission.url,                          # string
                     'thumbnail': submission.thumbnail,              # string
                     'author': submission.author.name,               # string
                     'subreddit': submission.subreddit.display_name  # string
-                    })
+                    }
+
+        if hasattr(submission, 'preview'):
+            metadata['url'] = post_preview(submission)
+            metadata['preview'] =  post_preview(submission, downscale=True)
+        else:
+            metadata['url'] = submission.url
+            metadata['preview'] = None
+
+        hot.append(metadata)
+
     return hot
 
 def save_image(data):
@@ -55,3 +65,21 @@ def save_image(data):
         print(exc)
         print('Unable to save image {}'.format(data['id']))
         return False
+
+def post_preview(submission, downscale = False):
+    try:
+        downscale = submission.preview['images'][0]['resolutions']
+        source = submission.preview['images'][0]['source']
+
+        if downscale:
+            previews = downscale + [source]
+            for size in previews:
+                if size['height'] >= 400:
+                    return size['url']
+        else:
+            return source['url']
+
+
+    except Exception as exc:
+        print(exc)
+        return None
