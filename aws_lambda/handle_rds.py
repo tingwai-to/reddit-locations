@@ -37,12 +37,13 @@ def insert_metadata(data):
     with conn.cursor() as cur:
         try:
             values = [data['thumbnail'], data['score'], data['title'], data['url'],
-                      data['author'], data['created_utc'], data['id'], data['subreddit']]
+                      data['author'], data['created_utc'], data['id'], data['subreddit'],
+                      data['preview']]
 
             cmd =  """INSERT INTO Image (
-            thumbnail, score, title, url, author, created_utc, id, subreddit
+            thumbnail, score, title, url, author, created_utc, id, subreddit, preview
             )
-            VALUES (%s, %s, %s, %s, %s, %s, %s, %s)"""
+            VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)"""
             cur.execute(cmd, values)
 
         except Exception as exc:
