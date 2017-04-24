@@ -15,33 +15,46 @@ if (!is_numeric($page_number)) {
 $position = (($page_number - 1) * $item_per_page);
 
 if (empty($tags)) {
-  $results = $mysqli->prepare("SELECT id, score, url, title, thumbnail FROM Image ORDER BY created_utc  DESC LIMIT ?, ?");
+  $results = $mysqli->prepare("SELECT id, score, url, title, thumbnail, preview FROM Image ORDER BY created_utc  DESC LIMIT ?, ?");
 
   $results->bind_param("dd", $position, $item_per_page);
   $results->execute();
-  $results->bind_result($id, $score, $url, $title, $thumbnail);
+  $results->bind_result($id, $score, $url, $title, $thumbnail, $preview);
 
 } else {
   $tag_string = implode(",", $tags);
 
-  $results = $mysqli->prepare("SELECT id, score, url, title, thumbnail FROM Image WHERE id IN ( SELECT image_id FROM Tagmap WHERE tag_id IN ($tag_string) GROUP BY image_id HAVING count(DISTINCT(tag_id)) = ? ) ORDER BY created_utc DESC LIMIT ?, ?");
+  $results = $mysqli->prepare("SELECT id, score, url, title, thumbnail, preview FROM Image WHERE id IN ( SELECT image_id FROM Tagmap WHERE tag_id IN ($tag_string) GROUP BY image_id HAVING count(DISTINCT(tag_id)) = ? ) ORDER BY created_utc DESC LIMIT ?, ?");
 
   $results->bind_param("ddd", count($tags), $position, $item_per_page);
   $results->execute();
-  $results->bind_result($id, $score, $url, $title, $thumbnail);
+  $results->bind_result($id, $score, $url, $title, $thumbnail, $preview);
 
 }
 
 while ($results->fetch()) {
-  $exists = getimagesize($url);
+  if (is_null($preview)) {
+    $exists = getimagesize($url);
 
-  if (is_array($exists)) {
-    list($width, $height) = $exists;
-    echo "<div class='item' data-w='$width' data-h='$height'>";
+    if (is_array($exists)) {
+      list($width, $height) = $exists;
+      echo "<div class='item' data-w='$width' data-h='$height'>";
       echo "<a href='http://reddit.com/$id'>";
-        echo "<img src='$url' alt='$title'>";
+      echo "<img src='$url' alt='$title'>";
       echo "</a>";
-    echo "</div>";
+      echo "</div>";
+    }
+  } else {
+    $exists = getimagesize($preview);
+
+    if (is_array($exists)) {
+      list($width, $height) = $exists;
+      echo "<div class='item' data-w='$width' data-h='$height'>";
+      echo "<a href='http://reddit.com/$id'>";
+      echo "<img src='$preview' alt='$title'>";
+      echo "</a>";
+      echo "</div>";
+    }
   }
 }
 

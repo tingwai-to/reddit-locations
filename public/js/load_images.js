@@ -4,7 +4,7 @@ var loading = false; //prevents multiple loads
 load_contents(track_page); //initial content load
 
 $(window).scroll(function () { //detect page scroll
-  if ($(window).scrollTop() >= $(document).height() - $(window).height() - 200) { //if user scrolls within 100px of bottom of the page
+  if ($(window).scrollTop() >= $(document).height() - $(window).height() - 800) { //if user scrolls within 800px of bottom of the page
     var values = $('#tags').val();
     load_contents(track_page, values); //load content
   }
