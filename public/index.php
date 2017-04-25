@@ -131,9 +131,6 @@
         <option></option>
         <?php
         require('src/get_tags.php');
-        foreach ($tag_array as $key => $value):
-          echo '<option value="' . $key . '">' . $value . '</option>';
-        endforeach;
         ?>
       </select>
     </div>
