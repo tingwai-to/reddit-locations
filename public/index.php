@@ -12,6 +12,7 @@
   <link href="css/style.css" rel="stylesheet">
   <link href="css/select2.min.css" rel="stylesheet">
   <link href="css/flex-images.css" rel="stylesheet">
+  <link href="css/lightbox.min.css" rel="stylesheet">
 
 
 </head>
@@ -60,10 +61,10 @@
       <div class="modal-body">
         <h4><b>RedditEarth:</b> searching r/EarthPorn with image recognition</h4>
         <p class="text" align="justify">
-          I am a huge fan of r/EarthPorn (landscape pictures) subreddit on Reddit. But one thing that I felt was missing
-          is the ability to filter images by landscape. So I built this tag-based search tool to filter images based on
-          objects detected in images. All tags are generated using AWS Rekognition, a deep-learning image analysis
-          service.
+          I am a huge fan of <a href="https://www.reddit.com/r/EarthPorn/">r/EarthPorn</a> (landscape pictures) on
+          Reddit. But one thing that I felt was missing is the ability to filter images by landscape. So I built this
+          tag-based search tool to filter images based on objects detected in images. All tags are generated using AWS
+          Rekognition, a deep-learning image analysis service.
         </p>
       </div>
       <div class="modal-footer">
@@ -169,7 +170,22 @@
 <script src="js/flex-images.js"></script>
 <script src="js/select2_config.js"></script>
 <script src="js/load_images.js"></script>
+<script src="js/lightbox.min.js"></script>
 
+<script>
+  lightbox.option({
+    'alwaysShowNavOnTouchDevices': true,
+    'albumLabel': '',
+//    'disableScrolling':,
+    'fadeDuration': 300,
+    'fitImagesInViewport': true,
+//    'imageFadeDuration':500,
+//    'positionFromTop':,
+    'resizeDuration': 300,
+//    'showImageNumberLabel': false,
+//    'wrapAround': true,
+  })
+</script>
 
 </body>
 

@@ -39,7 +39,10 @@ while ($results->fetch()) {
     if (is_array($exists)) {
       list($width, $height) = $exists;
       echo "<div class='item' data-w='$width' data-h='$height'>";
-      echo "<a href='http://reddit.com/$id'>";
+      echo "<a href='$url' data-lightbox='$id' 
+            data-title='<a href=\"http://reddit.com/$id\" target=\"_blank\">" .
+        htmlspecialchars($title, ENT_QUOTES, 'UTF-8') .
+        "</a>'>";
       echo "<img src='$url' alt='$title'>";
       echo "</a>";
       echo "</div>";
@@ -50,7 +53,10 @@ while ($results->fetch()) {
     if (is_array($exists)) {
       list($width, $height) = $exists;
       echo "<div class='item' data-w='$width' data-h='$height'>";
-      echo "<a href='http://reddit.com/$id'>";
+      echo "<a href='$url' data-lightbox='$id' 
+            data-title='<a href=\"http://reddit.com/$id\" target=\"_blank\">" .
+            htmlspecialchars($title, ENT_QUOTES, 'UTF-8') .
+            "</a>'>";
       echo "<img src='$preview' alt='$title'>";
       echo "</a>";
       echo "</div>";
