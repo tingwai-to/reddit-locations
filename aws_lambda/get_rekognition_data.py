@@ -1,5 +1,12 @@
+"""AWS Lambda handler function
+
+This module is triggered whenever a new file is uploaded to S3. The file is 
+put through Rekognition and labels are extracted using object/scene detection.
+Labels are then inserted into MySQL table.
+
+"""
+
 from __future__ import print_function
-import os
 import logging
 import boto3
 import urllib
@@ -12,8 +19,30 @@ logger.setLevel(logging.INFO)
 
 
 def detect_labels(bucket, key):
+    """
+    Retrieve labels detected in an image.
+    
+    Args:
+        bucket (str): name of bucket the image is from
+        key (str): name of file
+    
+    Returns:
+        response (dict): list of object/scenes and respective confidence
+            eg. { "Labels": [ 
+                    { "Confidence": 99.9, 
+                      "Name": "object1"
+                    }, 
+                    { "Confidence": 98.8,
+                      "Name": "object2"
+                    },
+                    ...
+                    ]
+                }
+    
+    """
     response = rekognition.detect_labels(Image={"S3Object": {"Bucket": bucket, "Name": key}}, MinConfidence=70)
     return response
+
 
 def lambda_handler(event, context):
     bucket = event['Records'][0]['s3']['bucket']['name']

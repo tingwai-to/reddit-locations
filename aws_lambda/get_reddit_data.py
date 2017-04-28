@@ -1,3 +1,11 @@
+"""AWS Lambda handler function
+
+This module is executed at a set interval rate defined by a trigger. Data from
+Reddit is gathered through PRAW, a Reddit API wrapper. Metadata is saved to 
+database and images are saved to S3 to be processed through Rekognition.
+
+"""
+
 from __future__ import print_function
 import get_data
 import handle_s3

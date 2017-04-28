@@ -1,7 +1,5 @@
 from __future__ import print_function
-import os
 import sys
-import boto3
 import rds_config
 import pymysql
 
@@ -20,6 +18,16 @@ except:
 print("SUCCESS: Connection to RDS mysql, {}, instance succeeded".format(db_name))
 
 def record_exists(post):
+    """
+    Checks if record of Reddit post already exists in MySQL table.
+    
+    Args:
+        post (dict): Reddit metadata
+        
+    Returns:
+        (bool): True if record already exists
+    
+    """
     with conn.cursor() as cur:
         try:
             cur.execute("SELECT EXISTS (SELECT 1 FROM Image WHERE id=%s)", post['id'])
@@ -34,6 +42,16 @@ def record_exists(post):
             return False
 
 def insert_metadata(data):
+    """
+    Inserts record of Reddit post's metadata into MySQL table.
+    
+    Args:
+        post (dict): Reddit metadata
+        
+    Returns:
+        None
+        
+    """
     with conn.cursor() as cur:
         try:
             values = [data['thumbnail'], data['score'], data['title'], data['url'],
@@ -51,6 +69,18 @@ def insert_metadata(data):
             return
 
 def insert_tag(key, response):
+    """
+    Inserts new tags, if any, into Tag table. Inserts images and labels into an
+    associative table, Tagmap.
+    
+    Args:
+        key (str): filename
+        response (dict): list of object/scenes and respective confidence
+        
+    Returns:
+        None
+    
+    """
     image_id = key.split('/')[1]
 
     with conn.cursor() as cur:

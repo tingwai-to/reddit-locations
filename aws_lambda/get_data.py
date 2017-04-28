@@ -7,6 +7,16 @@ import praw
 
 
 def reddit_data(subname):
+    """
+    Gets top hot subreddit posts data using PRAW.
+    
+    Args:
+        subname (str): name of subreddit
+        
+    Returns:
+        hot (list): list of dict containing Reddit posts metadata
+    
+    """
     LIMIT=15
 
     reddit = praw.Reddit(client_id = os.environ['client_id'],
@@ -42,6 +52,21 @@ def reddit_data(subname):
     return hot
 
 def save_image(data):
+    """
+    Attempts to save image to /tmp and checks if it is compatible for Rekognition.
+    
+    Notes:
+        Rekognition only accepts .jpg so only .jpg are considered compatible for
+        now.
+        
+    Args:
+        data (dict): Reddit metadata
+        
+    Returns:
+        (bool): True if compatible for Rekognition  
+    
+    """
+
     fname = '/tmp/'+data['id']
 
     try:
@@ -79,6 +104,20 @@ def save_image(data):
         return False
 
 def post_preview(submission, downscale_quality = False):
+    """
+    Gets url to picture of Reddit post. If the downscale_quality argument
+    is False, the original image link is retrieved, else a downscaled picture is
+    returned.
+    
+    Args:
+        submission (praw): submission containing data
+        downscale_quality (bool): optional argument to retrieve reduced image 
+            quality
+    
+    Returns:
+        (str): url to image
+    
+    """
     try:
         downscale = submission.preview['images'][0]['resolutions']
         source = submission.preview['images'][0]['source']
